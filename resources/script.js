@@ -1,9 +1,9 @@
 let canvas;
 let ctx;
 
-let width = 800;
-let height = 600;
-let delay = 1;
+let width = 200;
+let height = 150;
+let delay = 20;
 let size = width*height;
 let buffer0 = [],
     buffer1 = [],
@@ -27,20 +27,21 @@ function initCanvas() {
 	document.addEventListener('keypress', onKeyPress);
 
 	texture = ctx.getImageData(0,0,width,height);
-	// for(let a = 0; a<30;a++){
-	// 	disturb(floor(Math.random()*(width-2)), floor(Math.random()*(height-30)), Math.random()*10000);
-	// }
-	// for(let a = 0; a<500;a++){
-	// 	draw();
-	// }
+	for(let a = 0; a<50;a++){
+		disturb(floor(Math.random()*(width-2)), floor(Math.random()*(height-30)), Math.random()*10000);
+	}
+	for(let a = 0; a<300;a++){
+		draw();
+	}
 	setInterval(draw, delay);
 }
 
 function draw() {
+    clear();
 	var img = ctx.getImageData(0, 0, width, height),
         data = img.data;
 
-    // average cells to make the surface more even
+    //average cells to make the surface more even
     for(let i=width+1;i<size-width-1;i+=2){
         for(let x=1;x<width-1;x++,i++){
             buffer0[i] = (buffer0[i]+buffer0[i+1]+buffer0[i-1]+buffer0[i-width]+buffer0[i+width])/5;
@@ -68,7 +69,6 @@ function draw() {
             data[i4+2] = texture.data[ti4+2]+light;
         }
     }
-    // rain
     aux = buffer0;
     buffer0 = buffer1;
     buffer1 = aux;
@@ -79,20 +79,20 @@ function disturb(x, y, z){
     if(x < 2 || x > width-2 || y < 1 || y > height-2)
         return;
 
-    for(let j = 0; j<5;j++){
-    	for(let a = 0; a<5;a++){
-    		if(a==0||a==4||j==0||j==4){
-    		var i = x+j+(y+a)*width;
+    // for(let j = 0; j<5;j++){
+    // 	for(let a = 0; a<5;a++){
+    // 		if(a==0||a==4||j==0||j==4){
+    // 		var i = x+j+(y+a)*width;
+
+    // 		buffer0[i] += z;
+    // 		buffer0[i-1] -= z;
+    // 	}
+    // 	}    	
+    // }
+        		var i = x+(y)*width;
 
     		buffer0[i] += z;
     		buffer0[i-1] -= z;
-    	}
-    	}    	
-    }
-      //   		var i = x+(y)*width;
-
-    		// buffer0[i] += z;
-    		// buffer0[i-1] -= z;
 
 }
 
