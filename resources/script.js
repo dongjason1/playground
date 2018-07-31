@@ -27,12 +27,12 @@ function initCanvas() {
 	document.addEventListener('keypress', onKeyPress);
 
 	texture = ctx.getImageData(0,0,width,height);
-	for(let a = 0; a<30;a++){
-		disturb(floor(Math.random()*(width-2)), floor(Math.random()*(height-30)), Math.random()*10000);
-	}
-	for(let a = 0; a<500;a++){
-		draw();
-	}
+	// for(let a = 0; a<30;a++){
+	// 	disturb(floor(Math.random()*(width-2)), floor(Math.random()*(height-30)), Math.random()*10000);
+	// }
+	// for(let a = 0; a<500;a++){
+	// 	draw();
+	// }
 	setInterval(draw, delay);
 }
 
